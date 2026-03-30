@@ -1,9 +1,50 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { AlertTriangle } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty';
+import { getRoom } from '@/lib/rooms';
 
 export const Route = createFileRoute('/rooms/$id')({
   component: RouteComponent,
+  errorComponent: () => (
+    <div className="grid h-full min-h-screen place-content-center">
+      <Empty>
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <AlertTriangle />
+          </EmptyMedia>
+          <EmptyTitle>Nem található</EmptyTitle>
+          <EmptyDescription>A keresett termék nem található!</EmptyDescription>
+        </EmptyHeader>
+        <EmptyContent>
+          <Button asChild>
+            <Link to="/">Vissza a főoldalra</Link>
+          </Button>
+        </EmptyContent>
+      </Empty>
+    </div>
+  ),
 });
 
 function RouteComponent() {
-  return <div>Hello "/rooms/$id"!</div>;
+  const { id } = Route.useParams();
+
+  const { data: room } = useSuspenseQuery(getRoom(id));
+
+  if (!room) throw new Error('Not found');
+
+  return (
+    <main className="container flex flex-col gap-6 py-12">
+      <h1 className="mt-12 mb-6 text-center text-5xl font-bold">{room.data.name}</h1>
+    </main>
+  );
 }

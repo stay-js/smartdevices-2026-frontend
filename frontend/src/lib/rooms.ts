@@ -9,7 +9,7 @@ const roomResponseSchema = createApiResponseSchema(roomWithSmartDevicesSchema);
 
 export function getRoom(id: string) {
   return queryOptions({
-    queryFn: () => GET(`/rooms${id}`, roomResponseSchema),
+    queryFn: () => GET(`/rooms/${id}`, roomResponseSchema),
     queryKey: ['rooms', 'show', { id }],
   });
 }
