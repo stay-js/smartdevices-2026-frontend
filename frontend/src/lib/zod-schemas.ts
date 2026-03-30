@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const roomSchema = z.object({
-  id: z.coerce.number().int().positive(),
+  id: z.string().min(1),
 
   building: z.string().min(1),
   floor: z.string().min(1),
@@ -10,7 +10,7 @@ export const roomSchema = z.object({
 export type Room = z.infer<typeof roomSchema>;
 
 export const smartDeviceSchema = z.object({
-  id: z.coerce.number().int().positive(),
+  id: z.string().min(1),
 
   brand: z.string().min(3).max(30),
   energy_usage: z.number().int().min(5).max(4900),
@@ -41,7 +41,7 @@ export const createSmartDeviceSchame = z.object({
     .min(1)
     .refine((val) => new Date(val).getTime() > 0),
   name: z.string().min(3).max(30),
-  room_id: z.string(),
+  room_id: z.string().min(1),
   status: z.enum(['Online', 'Offline']),
 });
 export type CreateSmartDeviceData = z.infer<typeof createSmartDeviceSchame>;

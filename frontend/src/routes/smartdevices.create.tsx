@@ -18,9 +18,9 @@ function RouteComponent() {
     onError: () => {
       toast.error('Váratlan hiba történt az okoseszköz rögzítése során. Próbálja újra később!');
     },
-    onSuccess: (result) =>
+    onSuccess: (_, input) =>
       router.navigate({
-        params: { id: result?.data.room.id.toString() ?? '' },
+        params: { id: input.room_id },
         to: '/rooms/$id',
       }),
   });

@@ -39,15 +39,7 @@ const formSchema = z.object({
     .string()
     .min(3, { error: 'A név min. hossza 3 karakter!' })
     .max(30, { error: 'A név max. hossza 30 karakter!' }),
-  room_id: z.string().refine(
-    (val) => {
-      const num = Number(val);
-      return Number.isInteger(num) && num > 0;
-    },
-    {
-      error: 'Kérem válasszon szobát!',
-    },
-  ),
+  room_id: z.string().min(1, { error: 'Kérem válasszon szobát!' }),
   status: z.enum(['Online', 'Offline']),
 });
 

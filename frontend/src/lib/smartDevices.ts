@@ -4,13 +4,11 @@ import { z } from 'zod';
 import { createApiResponseSchema, GET, POST } from '@/lib/api';
 import { type CreateSmartDeviceData, smartDeviceWithRoomSchema } from '@/lib/zod-schemas';
 
-const smartDeviceResponseSchema = createApiResponseSchema(smartDeviceWithRoomSchema);
 const smartDevicesResponseSchema = createApiResponseSchema(z.array(smartDeviceWithRoomSchema));
 
 export function createSmartDevice() {
   return mutationOptions({
-    mutationFn: (data: CreateSmartDeviceData) =>
-      POST('/smartdevices', data, smartDeviceResponseSchema),
+    mutationFn: (data: CreateSmartDeviceData) => POST('/smartdevices', data),
   });
 }
 
