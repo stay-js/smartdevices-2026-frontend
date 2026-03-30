@@ -44,7 +44,7 @@ function RouteComponent() {
   if (!room) throw new Error('Not found');
 
   return (
-    <main className="container flex flex-col pb-12">
+    <main className="container flex flex-col gap-4 pb-12">
       <h1 className="mt-12 mb-6 text-center text-5xl font-bold">{room.data.name}</h1>
 
       <Link
