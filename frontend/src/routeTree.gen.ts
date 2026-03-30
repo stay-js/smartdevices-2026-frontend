@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SmartdevicesCreateRouteImport } from './routes/smartdevices.create'
 import { Route as RoomsIdRouteImport } from './routes/rooms.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SmartdevicesCreateRoute = SmartdevicesCreateRouteImport.update({
+  id: '/smartdevices/create',
+  path: '/smartdevices/create',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RoomsIdRoute = RoomsIdRouteImport.update({
@@ -26,27 +32,31 @@ const RoomsIdRoute = RoomsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/rooms/$id': typeof RoomsIdRoute
+  '/smartdevices/create': typeof SmartdevicesCreateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/rooms/$id': typeof RoomsIdRoute
+  '/smartdevices/create': typeof SmartdevicesCreateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/rooms/$id': typeof RoomsIdRoute
+  '/smartdevices/create': typeof SmartdevicesCreateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/rooms/$id'
+  fullPaths: '/' | '/rooms/$id' | '/smartdevices/create'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/rooms/$id'
-  id: '__root__' | '/' | '/rooms/$id'
+  to: '/' | '/rooms/$id' | '/smartdevices/create'
+  id: '__root__' | '/' | '/rooms/$id' | '/smartdevices/create'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   RoomsIdRoute: typeof RoomsIdRoute
+  SmartdevicesCreateRoute: typeof SmartdevicesCreateRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/smartdevices/create': {
+      id: '/smartdevices/create'
+      path: '/smartdevices/create'
+      fullPath: '/smartdevices/create'
+      preLoaderRoute: typeof SmartdevicesCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rooms/$id': {
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   RoomsIdRoute: RoomsIdRoute,
+  SmartdevicesCreateRoute: SmartdevicesCreateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
