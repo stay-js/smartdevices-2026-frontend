@@ -2,6 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { AlertTriangle } from 'lucide-react';
 
+import { SmartDevicesTable } from '@/components/smart-devices-table';
 import { Button } from '@/components/ui/button';
 import {
   Empty,
@@ -52,6 +53,8 @@ function RouteComponent() {
       >
         Új eszköz hozzáadása
       </Link>
+
+      <SmartDevicesTable smartdevices={room.data.smartdevices} />
     </main>
   );
 }
