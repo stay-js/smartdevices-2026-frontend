@@ -24,7 +24,7 @@ export const Route = createFileRoute('/rooms/$id')({
             <AlertTriangle />
           </EmptyMedia>
           <EmptyTitle>Nem található</EmptyTitle>
-          <EmptyDescription>A keresett termék nem található!</EmptyDescription>
+          <EmptyDescription>A keresett szoba nem található!</EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
           <Button asChild>
