@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { CheckCircleIcon } from 'lucide-react';
 import { z } from 'zod';
 
+import { RoomCard } from '@/components/room-card';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,6 +38,15 @@ function RouteComponent() {
         <div>
           Message: <span>{isLoading ? 'Loading...' : data?.message}</span>
         </div>
+
+        <RoomCard
+          room={{
+            building: 'Otthon',
+            floor: 'Földszint',
+            id: 1,
+            name: 'Nappali',
+          }}
+        />
 
         <AlertDialog>
           <AlertDialogTrigger asChild>
