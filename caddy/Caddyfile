@@ -1,0 +1,36 @@
+http://backend.vm1.test, http://backend.vm2.test, http://backend.vm3.test, http://backend.vm4.test, http://backend.vm5.test, http://backend.vm6.test {
+	root * /www/public
+	php_fastcgi backend:9000
+	file_server
+	encode zstd gzip
+}
+
+http://responsive.vm1.test, http://responsive.vm2.test, http://responsive.vm3.test, http://responsive.vm4.test, http://responsive.vm5.test, http://responsive.vm6.test {
+	root * /responsive
+	try_files {path} /index.html
+	file_server
+}
+
+http://frontend.vm1.test, http://frontend.vm2.test, http://frontend.vm3.test, http://frontend.vm4.test, http://frontend.vm5.test, http://frontend.vm6.test {
+	reverse_proxy frontend:3000
+}
+
+http://pma.vm1.test, http://pma.vm2.test, http://pma.vm3.test, http://pma.vm4.test, http://pma.vm5.test, http://pma.vm6.test {
+	reverse_proxy phpmyadmin:80
+}
+
+http://jsonserver.vm1.test, http://jsonserver.vm2.test, http://jsonserver.vm3.test, http://jsonserver.vm4.test, http://jsonserver.vm5.test, http://jsonserver.vm6.test {
+	reverse_proxy jsonserver:3000
+}
+
+http://swagger.vm1.test, http://swagger.vm2.test, http://swagger.vm3.test, http://swagger.vm4.test, http://swagger.vm5.test, http://swagger.vm6.test {
+	reverse_proxy swagger:8080
+}
+
+http://docs.vm1.test, http://docs.vm2.test, http://docs.vm3.test, http://docs.vm4.test, http://docs.vm5.test, http://docs.vm6.test {
+	reverse_proxy docs:3000
+}
+
+http://mailcatcher.vm1.test, http://mailcatcher.vm2.test, http://mailcatcher.vm3.test, http://mailcatcher.vm4.test, http://mailcatcher.vm5.test, http://mailcatcher.vm6.test {
+	reverse_proxy mailcatcher:1080
+}

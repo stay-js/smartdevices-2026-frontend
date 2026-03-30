@@ -1,0 +1,127 @@
+name: Fullstack 2026
+
+services:
+  backend:
+    image: znagyy/backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
+      - ./backend:/www:rw
+      - ./.env:/www/.env:rw
+      - shared_composer:/home/phpdocker/.composer
+    networks:
+      - fullstack
+    pull_policy: build
+
+  caddy:
+    image: caddy:2.10.2-alpine
+    volumes:
+      - ./backend:/www:ro
+      - ./responsive:/responsive:ro
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    ports:
+      - "80:80"
+    networks:
+      - fullstack
+    restart: unless-stopped
+
+  db:
+    image: mysql:9.5.0
+    volumes:
+      - mysql_data:/var/lib/mysql:rw
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - TZ=${TZ}
+    ports:
+      - "3306:3306"
+    networks:
+      - fullstack
+    healthcheck:
+      test: /usr/bin/mysql --user=root --password=$DB_ROOT_PASSWORD --execute "SHOW DATABASES;"
+      timeout: 5s
+      retries: 18
+
+  docs:
+    image: znagyy/docs:1.0.1
+    volumes:
+      - ./docs/content:/app/content
+      - ./docs/public:/app/public
+      - ./docs/app/_meta.global.tsx:/app/_meta.global.tsx
+      - ./.env:/app/.env:ro
+    environment:
+      - DOCS_ENV=${DOCS_ENV}
+    networks:
+      - fullstack
+
+  frontend:
+    image: znagyy/frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - ./.env:/app/.env:ro
+      - /app/node_modules
+      - shared_pnpm:/shared_pnpm
+    networks:
+      - fullstack
+    pull_policy: build
+
+  jsonserver:
+    image: idomi27/json-server:26
+    volumes:
+      - ./jsonserver:/app
+      - /app/node_modules
+    networks:
+      - fullstack
+
+  mailcatcher:
+    image: dockage/mailcatcher:0.9.0
+    networks:
+      - fullstack
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.3-apache
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=${DB_HOST}
+      - PMA_PORT=${DB_PORT}
+      - PMA_ABSOLUTE_URI=${PMA_ABSOLUTE_URI}
+      - UPLOAD_LIMIT=${PMA_UPLOAD_LIMIT}
+    networks:
+      - fullstack
+    restart: unless-stopped
+
+  swagger:
+    image: swaggerapi/swagger-ui:v5.31.2
+    volumes:
+      - ./swagger/openapi.yaml:/docs/openapi.yaml
+    environment:
+      - SWAGGER_JSON=/docs/openapi.yaml
+      - DISPLAY_OPERATION_ID=true
+      - VALIDATOR_URL=null
+    networks:
+      - fullstack
+
+networks:
+  fullstack: ~
+
+volumes:
+  mysql_data: ~
+  caddy_data: ~
+  shared_composer:
+    external: true
+  shared_pnpm:
+    external: true

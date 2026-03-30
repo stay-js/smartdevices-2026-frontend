@@ -1,0 +1,15 @@
+{
+  "timestamps": false,
+  "relationships": [
+    {
+      "source": "rooms",
+      "destination": "smartdevices",
+      "type": "hasMany"
+    },
+    {
+      "source": "smartdevices",
+      "destination": "rooms",
+      "type": "belongsTo"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "rooms": [
+    { "id": "1", "name": "Nappali", "building": "Otthon", "floor": "Földszint" },
+    { "id": "2", "name": "Konyha", "building": "Otthon", "floor": "Földszint" },
+    { "id": "3", "name": "Hálószoba", "building": "Otthon", "floor": "1. emelet" },
+    { "id": "4", "name": "Iroda", "building": "Munkahely", "floor": "2. emelet" },
+    { "id": "5", "name": "Konferenciaterem", "building": "Munkahely", "floor": "1. emelet" },
+    { "id": "6", "name": "Konyha", "building": "Munkahely", "floor": "Földszint" },
+    { "id": "7", "name": "Nappali", "building": "Nyaraló", "floor": "Földszint" },
+    { "id": "8", "name": "Hálószoba", "building": "Nyaraló", "floor": "1. emelet" },
+    { "id": "9", "name": "Terasz", "building": "Nyaraló", "floor": "Földszint" }
+  ],
+  "smartdevices": [
+    {
+      "id": "1",
+      "name": "Smart AC",
+      "room_id": "1",
+      "brand": "CoolMaster",
+      "energy_usage": 1200,
+      "status": "Online",
+      "firmware_version": "v2.4.1",
+      "last_sync": "2026-03-23"
+    },
+    {
+      "id": "2",
+      "name": "Smart Bulb 01",
+      "room_id": "2",
+      "brand": "Lumina",
+      "energy_usage": 9,
+      "status": "Online",
+      "firmware_version": "v1.0.2",
+      "last_sync": "2026-03-23"
+    },
+    {
+      "id": "3",
+      "name": "Security Camera",
+      "room_id": "3",
+      "brand": "SafeHome",
+      "energy_usage": 15,
+      "status": "Offline",
+      "firmware_version": "v3.1.0",
+      "last_sync": "2026-03-23"
+    },
+    {
+      "id": "4",
+      "name": "Smart Thermostat",
+      "room_id": "4",
+      "brand": "ThermoSmart",
+      "energy_usage": 5,
+      "status": "Online",
+      "firmware_version": "v2.0.5",
+      "last_sync": "2026-03-23"
+    },
+    {
+      "id": "5",
+      "name": "Smart Speaker",
+      "room_id": "5",
+      "brand": "SoundWave",
+      "energy_usage": 10,
+      "status": "Online",
+      "firmware_version": "v1.3.0",
+      "last_sync": "2026-03-23"
+    },
+    {
+      "id": "6",
+      "name": "Smart Fridge",
+      "room_id": "6",
+      "brand": "CoolMaster",
+      "energy_usage": 150,
+      "status": "Online",
+      "firmware_version": "v2.5.0",
+      "last_sync": "2026-03-23"
+    },
+    {
+      "id": "7",
+      "name": "Smart TV",
+      "room_id": "7",
+      "brand": "VisionTech",
+      "energy_usage": 200,
+      "status": "Offline",
+      "firmware_version": "v3.0.1",
+      "last_sync": "2026-03-23"
+    },
+    {
+      "id": "8",
+      "name": "Smart Light Strip",
+      "room_id": "8",
+      "brand": "Lumina",
+      "energy_usage": 12,
+      "status": "Online",
+      "firmware_version": "v1.2.0",
+      "last_sync": "2026-03-23"
+    }
+  ]
+}

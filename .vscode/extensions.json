@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "bmewburn.vscode-intelephense-client",
+    "bradlc.vscode-tailwindcss",
+    "britesnow.vscode-toggle-quotes",
+    "dbaeumer.vscode-eslint",
+    "docker.docker",
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "open-southeners.laravel-pint"
+  ]
+}
