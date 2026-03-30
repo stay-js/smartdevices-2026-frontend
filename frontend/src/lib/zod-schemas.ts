@@ -41,6 +41,7 @@ export const createSmartDeviceSchame = z.object({
     .min(1)
     .refine((val) => new Date(val).getTime() > 0),
   name: z.string().min(3).max(30),
+  room_id: z.string(),
   status: z.enum(['Online', 'Offline']),
 });
 export type CreateSmartDeviceData = z.infer<typeof createSmartDeviceSchame>;
