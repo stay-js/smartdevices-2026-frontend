@@ -7,7 +7,7 @@ export function RoomCard({ room }: { room: Room }) {
     <Link params={{ id: room.id.toString() }} to="/rooms/$id">
       <div className="group cursor-pointer overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-md transition-shadow duration-300 hover:shadow-xl">
         <div className="flex flex-col gap-4 p-6">
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h3 className="text-xl font-bold text-slate-800 transition-colors group-hover:text-blue-600">
               {room.name}
             </h3>

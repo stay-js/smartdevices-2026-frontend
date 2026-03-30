@@ -1,77 +1,25 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { CheckCircleIcon } from 'lucide-react';
-import { z } from 'zod';
 
 import { RoomCard } from '@/components/room-card';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogMedia,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import { GET } from '@/lib/api';
-
-const helloSchema = z.object({
-  message: z.string(),
-});
+import { getRooms } from '@/lib/rooms';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data, isLoading } = useQuery({
-    queryFn: () => GET('/api/hello', helloSchema),
-    queryKey: ['hello'],
-  });
+  const { data: rooms } = useSuspenseQuery(getRooms());
 
   return (
-    <div className="grid min-h-screen place-content-center">
-      <div className="flex flex-col items-center gap-4">
-        <div>
-          Message: <span>{isLoading ? 'Loading...' : data?.message}</span>
-        </div>
+    <main className="container flex flex-col gap-6 py-12">
+      <h1 className="text-2xl font-bold">Szobák</h1>
 
-        <RoomCard
-          room={{
-            building: 'Otthon',
-            floor: 'Földszint',
-            id: 1,
-            name: 'Nappali',
-          }}
-        />
-
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button size="lg">Click me</Button>
-          </AlertDialogTrigger>
-
-          <AlertDialogContent size="sm">
-            <AlertDialogHeader>
-              <AlertDialogMedia>
-                <CheckCircleIcon className="size-6" />
-              </AlertDialogMedia>
-              Success!
-            </AlertDialogHeader>
-
-            <AlertDialogDescription>
-              Everything up until this point is working!
-            </AlertDialogDescription>
-
-            <AlertDialogFooter>
-              <AlertDialogCancel>Close</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {rooms?.data.map((room) => (
+          <RoomCard key={room.id} room={room} />
+        ))}
       </div>
-    </div>
+    </main>
   );
 }
