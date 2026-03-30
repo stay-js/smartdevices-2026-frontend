@@ -109,7 +109,7 @@ export function CreateSmartDeviceForm({ createSmartDevice, rooms }: CreateSmartD
 
                 {rooms.map((room) => (
                   <SelectItem key={room.id} value={room.id.toString()}>
-                    {room.name}
+                    {room.name} ({room.building})
                   </SelectItem>
                 ))}
               </SelectGroup>
